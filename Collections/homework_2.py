@@ -36,7 +36,8 @@ def create_common_dict(list_of_dicts):
 
 # Main function
 def main():
-    random_dicts = generate_random_dicts()
+    # random_dicts = generate_random_dicts()
+    random_dicts = [{'a':2,'b':75,'c':40,'j':87},{'a':27,'b':9,'c':40,'d':87}]
     print("List of random dicts:")
     for i, dict in enumerate(random_dicts, start=1):  # start=1 argument specifies that the index should start at 1 instead of the default value of 0
         print(f"Dict {i}: {dict}")
