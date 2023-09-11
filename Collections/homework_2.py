@@ -26,7 +26,7 @@ def create_common_dict(list_of_dicts):
                 if value > common_dict[key]:
                     common_dict[f"{key}_{i + 1}"] = value
                     del common_dict[key]
-                elif value < common_dict[key]:
+                else:
                     found_key = False
                     for j, key_list in enumerate(list_of_list_of_keys):
                         if key in key_list and not found_key:
