@@ -1,7 +1,6 @@
 import random
 
 
-# Generate a list of random dictionaries
 def generate_random_dicts():
     list_of_dicts = []  # initialize an empty list
     num_dicts = random.randint(2, 10)  # generate a random integer between 2 and 10 and assign it to the variable
@@ -18,28 +17,32 @@ def generate_random_dicts():
     return list_of_dicts  # return the contents of the 'list_of_dicts' variable as its result
 
 
-# Create common dictionary
 def create_common_dict(list_of_dicts):
-    common_dict = {}  # initialize an empty dictionary
-    for i, dict in enumerate(list_of_dicts):  # obtain both the index (i) and the value (dict) of each element in the iteration
-        for key, value in dict.items():  # iterate through the key-value pairs within a dictionary
+    common_dict = {}
+    list_of_list_of_keys = [list(d.keys()) for d in list_of_dicts]
+    for i, dict in enumerate(list_of_dicts):
+        for key, value in dict.items():
             if key in common_dict:
-                if value > common_dict[key]:  # check whether the value is greater than the value currently associated with the same key in common_dict
-                    # Rename the existing key with the dict number of the max value
-                    common_dict[f"{key}_{i + 1}"] = value  # enumerate() function starts indexing from 0 by default, which is why we add 1 to i to correspond to the dictionary's position in the list
-                    del common_dict[key]  # delete a key-value pair from the dictionary
+                if value > common_dict[key]:
+                    common_dict[f"{key}_{i + 1}"] = value
+                    del common_dict[key]
+                elif value < common_dict[key]:
+                    found_key = False
+                    for j, key_list in enumerate(list_of_list_of_keys):
+                        if key in key_list and not found_key:
+                            common_dict[f"{key}_{j + 1}"] = common_dict[key]
+                            found_key = True
+                            del common_dict[key]
             else:
-                common_dict[key] = value  # add a new key-value pair with the specified key and value
+                common_dict[key] = value
+    return common_dict
 
-    return common_dict  # return the contents of the 'common_dict' variable as its result
 
-
-# Main function
 def main():
     # random_dicts = generate_random_dicts()
-    random_dicts = [{'a':2,'b':75,'c':40,'j':87},{'a':27,'b':9,'c':40,'d':87}]
+    random_dicts = [{'a': 2, 'b': 75, 'c': 40, 'j': 87}, {'a': 27, 'b': 9, 'c': 40, 'd': 87}]
     print("List of random dicts:")
-    for i, dict in enumerate(random_dicts, start=1):  # start=1 argument specifies that the index should start at 1 instead of the default value of 0
+    for i, dict in enumerate(random_dicts, start=1):
         print(f"Dict {i}: {dict}")
 
     common_dict = create_common_dict(random_dicts)
