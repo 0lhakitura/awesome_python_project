@@ -53,8 +53,8 @@ def create_common_dict(list_of_dicts):
 
 def main():
     # random_dicts = generate_random_dicts()
-    random_dicts = [{'a': 27, 'b': 75, 'c': 40, 'j': 87}, {'a': 27, 'b': 9, 'c': 40, 'd': 87},
-                    {'a': 27, 'b': 9, 'c': 45, 'd': 87}]
+    random_dicts = [{'a': 2, 'b': 75, 'c': 40, 'j': 87}, {'a': 27, 'b': 9, 'c': 41, 'd': 87},
+                {'a': 27, 'b': 71, 'c': 39, 'e': 87}]
     print("List of random dicts:")
     for i, dict in enumerate(random_dicts, start=1):
         print(f"Dict {i}: {dict}")

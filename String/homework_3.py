@@ -2,14 +2,9 @@ import re
 
 pattern = r'\biz\b'  # \b: a word boundary anchor || r: raw string
 
-original_text = """
-    tHis iz your homeWork, copy these Text to variable. 
-	You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.
-	it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE. 
-	last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
-"""
+original_text = """tHis iz your homeWork, copy these Text to variable. You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE. last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
 
-whitespace_count = sum(1 for char in original_text if char.isspace())  # char.isspace() method checks whether a given character char is a whitespace character.
+whitespace_count = sum(1 for char in original_text if char.isspace()) # char.isspace() method checks whether a given character char is a whitespace character.
 
 fixed_text = re.sub(pattern, 'is', original_text, flags=re.IGNORECASE)  # re.sub() performs regular expression-based substitutions in strings. re.IGNORECASE makes the pattern matching case-insensitive.
 sentences = fixed_text.split('.')  # Each element in the resulting list will be a sentence from the original text.
