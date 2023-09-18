@@ -19,8 +19,8 @@ for sentence in sentences:
         formatted_sentences.append(formatted_sentence)
         last_words.append(stripped_sentence.split()[-1])   # split(): splits a string into a list of substrings based on whitespace characters. After splitting the sentence, [-1] accesses the last element (the last word) of the resulting list.
 
-new_sentence = " ".join(last_words) + "."
-new_paragraph = '. '.join(formatted_sentences) + '.'  # '. '.join(formatted_sentences):  concatenates the sentences in the formatted_sentences list into a single string and places a period and a space ('. ') between each pair of sentences.
+new_sentence = " ".join(last_words)
+new_paragraph = '. '.join(formatted_sentences) # '. '.join(formatted_sentences):  concatenates the sentences in the formatted_sentences list into a single string and places a period and a space ('. ') between each pair of sentences.
 
 final_paragraph = new_paragraph + " " + new_sentence
 
