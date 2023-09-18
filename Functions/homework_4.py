@@ -2,7 +2,7 @@ import re
 
 
 def count_whitespace(text):
-    return sum(1 for char in text if char.isspace())
+    return len(re.findall(r'\s', text))
 
 
 def fix_spelling_mistake(text):
@@ -11,15 +11,21 @@ def fix_spelling_mistake(text):
 
 
 def split_into_sentences(text):
-    return text.split('.')
+    sentence_pattern = r'[.!?]\s+'
+    return re.split(sentence_pattern, text)
 
 
 def format_sentence(sentence):
-    stripped_sentence = sentence.strip()
-    if stripped_sentence:
-        return stripped_sentence[0].capitalize() + stripped_sentence[1:].lower()
+    if sentence:
+        formatted_sentence = sentence[0].capitalize() + sentence[1:].lower()
+        punctuation_marks = ('.', ',', '!', '?')
+        if formatted_sentence[-1] in punctuation_marks:
+            return formatted_sentence
+        else:
+            return formatted_sentence + '.'
     else:
         return ''
+
 
 
 def extract_last_words(sentences):
@@ -32,11 +38,13 @@ def extract_last_words(sentences):
 
 
 def create_new_sentence(last_words):
-    return " ".join(last_words) + "."
+    text = ' '.join(last_words)
+    return text
 
 
 def create_new_paragraph(formatted_sentences):
-    return '. '.join(formatted_sentences) + '.'
+    text = ' '.join(formatted_sentences)
+    return text
 
 
 def main():

@@ -1,6 +1,6 @@
 import datetime
 import os
-from Functions.homework_4 import format_sentence
+from Functions.homework_4 import *
 
 
 class Records:
@@ -68,7 +68,9 @@ class RecordProvider:
 
         for record in records:
             print("Processing record:")
-            formatted_sentences = format_sentence(record)
+            sentences = split_into_sentences(record)
+            formatted_sentences = [format_sentence(sentence) for sentence in sentences]
+            formatted_sentences = create_new_paragraph(formatted_sentences)
             print(formatted_sentences)
 
         remove_file = input(f"Do you want to remove the processed file '{self.filename}'? (yes/no): ").lower()
