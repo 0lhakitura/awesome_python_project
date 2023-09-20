@@ -58,7 +58,7 @@ class RecordProvider:
     def __init__(self, filename="default_records.txt"):
         self.filename = filename
 
-    def process_records(self):
+    def process_records(self, num_records_to_process):
         if not os.path.isfile(self.filename):
             print(f"File '{self.filename}' not found.")
             return
@@ -66,12 +66,16 @@ class RecordProvider:
         with open(self.filename, "r") as file:
             records = file.read().splitlines()
 
+        print("Processing records:")
+        processed_count = 0
         for record in records:
-            print("Processing record:")
+            processed_count += 1
             sentences = split_into_sentences(record)
             formatted_sentences = [format_sentence(sentence) for sentence in sentences]
             formatted_sentences = create_new_paragraph(formatted_sentences)
             print(formatted_sentences)
+            if processed_count >= num_records_to_process:
+                break
 
         remove_file = input(f"Do you want to remove the processed file '{self.filename}'? (yes/no): ").lower()
         if remove_file == "yes":
@@ -86,5 +90,6 @@ if __name__ == "__main__":
     records_app.run()
 
     file_path = "news_feed.txt"
+    num_records = int(input("Enter the number of records to process: "))
     record_provider = RecordProvider(file_path)
-    record_provider.process_records()
+    record_provider.process_records(num_records)
