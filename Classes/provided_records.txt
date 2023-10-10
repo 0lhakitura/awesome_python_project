@@ -1,5 +1,7 @@
-News -------------------------
-They fell in love and lost each other in South America. Then a note stuck on a door brought them back together
+news: Breaking News: New Product Launch in London
+private_ad: Special Offer: 50% off on Electronics - Expires on 01/12/2023
+birthday_wish: Happy Birthday, Alice! Wishing you a fantastic day!
 
-News -------------------------
-These 6,000-year-old sandals found in a Spanish cave are Europe’s oldest shoes
+
+
+

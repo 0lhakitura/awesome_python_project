@@ -1,0 +1,13 @@
+{
+  "news": {
+    "text": "Breaking News: New Product Launch",
+    "city": "New York"
+  },
+  "private_ad": {
+    "text": "Great Deal: 50% off on Electronics",
+    "expiration_date": "01/12/2023"
+  },
+  "birthday_wish": {
+    "text": "Happy Birthday, John! Have a fantastic day!"
+  }
+}

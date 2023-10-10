@@ -115,8 +115,6 @@ class Records:
             print(f"{self.input_filename} not removed.")
 
 
-
-
 class TextAnalyzer:
     def __init__(self, text_file):
         self.text_file = text_file

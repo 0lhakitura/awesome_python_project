@@ -1,0 +1,13 @@
+<records>
+    <news>
+        <text>Breaking News: New Product Launch</text>
+        <city>New York</city>
+    </news>
+    <private_ad>
+        <text>Great Deal: 50% off on Electronics</text>
+        <expiration_date>01/12/2023</expiration_date>
+    </private_ad>
+    <birthday_wish>
+        <text>Happy Birthday, John! Have a fantastic day!</text>
+    </birthday_wish>
+</records>
