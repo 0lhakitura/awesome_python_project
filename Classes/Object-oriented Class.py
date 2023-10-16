@@ -392,6 +392,8 @@ class DatabaseManager:
 
     def close(self):
         self.conn.close()
+
+
 class TextAnalyzer:
     def __init__(self, text_file):
         self.text_file = text_file
