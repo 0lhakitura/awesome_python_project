@@ -5,7 +5,7 @@ from Functions.homework_4 import *
 import csv
 import string
 import xml.etree.ElementTree as ET
-
+import sqlite3
 
 class Record:
     def __init__(self):
@@ -68,6 +68,10 @@ class RecordsProcessor:
             stats_provider.analyze_text()
             stats_provider.create_word_csv("word_count.csv")
             stats_provider.create_letter_csv("letter_statistics.csv")
+            db_manager = DatabaseManager('my_database.db')
+            db_manager.create_tables()
+            db_manager.insert_record(record)
+            db_manager.close()
 
     def remove_processed_file(self):
         remove_file = input(f"Do you want to remove the processed file '{self.input_filename}'? (yes/no): ").lower()
@@ -328,6 +332,66 @@ class TextRecordsProcessor(RecordsProcessor):
         return None, None
 
 
+class DatabaseManager:
+    def __init__(self, db_name):
+        self.conn = sqlite3.connect(db_name)
+        self.cursor = self.conn.cursor()
+
+    def create_tables(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS News (
+                id INTEGER PRIMARY KEY,
+                text TEXT,
+                city TEXT,
+                timestamp TEXT
+            )
+        ''')
+
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS PrivateAd (
+                id INTEGER PRIMARY KEY,
+                text TEXT,
+                expiration_date TEXT,
+                timestamp TEXT
+            )
+        ''')
+
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS BirthdayWish (
+                id INTEGER PRIMARY KEY,
+                text TEXT,
+                timestamp TEXT
+            )
+        ''')
+        self.conn.commit()
+
+    def insert_record(self, record):
+        if isinstance(record, NewsRecord):
+            table_name = 'News'
+            data = (record.text, record.city, record.timestamp.strftime("%d/%m/%Y %H:%M"))
+        elif isinstance(record, PrivateAdRecord):
+            table_name = 'PrivateAd'
+            data = (record.text, record.expiration_date.strftime("%d/%m/%Y"), record.timestamp.strftime("%d/%m/%Y %H:%M"))
+        elif isinstance(record, BirthdayWishRecord):
+            table_name = 'BirthdayWish'
+            data = (record.text, record.timestamp.strftime("%d/%m/%Y %H:%M"))
+        else:
+            raise ValueError("Invalid record type")
+
+        try:
+            self.cursor.execute(f"SELECT id FROM {table_name} WHERE text = ?", (data[0],))
+            existing_record = self.cursor.fetchone()
+            if existing_record is None:
+                self.cursor.execute(f"INSERT INTO {table_name} VALUES (NULL, ?, ?)", data)
+                self.conn.commit()
+                print("Record added successfully.")
+            else:
+                print("Duplicate record found. Record not added.")
+        except sqlite3.IntegrityError:
+            self.conn.rollback()
+
+    def close(self):
+        self.conn.close()
 class TextAnalyzer:
     def __init__(self, text_file):
         self.text_file = text_file
@@ -404,9 +468,18 @@ if __name__ == "__main__":
     # num_records = int(input("Enter the number of records to process: "))
     # record_provider = TextRecordsProcessor()
     # record_provider.process_file()
-    records_json = JSONRecordsProcessor()
-    records_json.process_file()
+    # records_json = JSONRecordsProcessor()
+    # records_json.process_file()
     # records_xml = XMLRecordsProcessor()
     # records_xml.process_file()
 
+    conn = sqlite3.connect('my_database.db')
+    cursor = conn.cursor()
+    cursor.execute('''SELECT * FROM News''')
+    results = cursor.fetchall()
 
+    for row in results:
+        print(row)
+
+    cursor.close()
+    conn.close()
