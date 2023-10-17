@@ -2,7 +2,7 @@ import sqlite3
 from geopy.distance import great_circle
 
 
-# SQLite database setup
+
 def create_database():
     conn = sqlite3.connect('city_coordinates.db')
     cursor = conn.cursor()
@@ -17,7 +17,7 @@ def create_database():
     conn.close()
 
 
-# Function to get or add city coordinates
+
 def get_city_coordinates(city_name):
     conn = sqlite3.connect('city_coordinates.db')
     cursor = conn.cursor()
@@ -37,7 +37,7 @@ def get_city_coordinates(city_name):
         return latitude, longitude
 
 
-# Function to calculate distance between two cities
+
 def calculate_distance(city1, city2):
     coords1 = get_city_coordinates(city1)
     coords2 = get_city_coordinates(city2)

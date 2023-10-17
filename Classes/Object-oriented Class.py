@@ -456,6 +456,7 @@ class TextAnalyzer:
 
 if __name__ == "__main__":
 
+
     # text_file = 'news_feed.txt'
     # word_csv_file = 'word_count.csv'
     # letter_csv_file = 'letter_statistics.csv'
