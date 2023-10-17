@@ -455,6 +455,7 @@ class TextAnalyzer:
 
 
 if __name__ == "__main__":
+
     # text_file = 'news_feed.txt'
     # word_csv_file = 'word_count.csv'
     # letter_csv_file = 'letter_statistics.csv'
@@ -475,13 +476,13 @@ if __name__ == "__main__":
     # records_xml = XMLRecordsProcessor()
     # records_xml.process_file()
 
-    conn = sqlite3.connect('my_database.db')
-    cursor = conn.cursor()
-    cursor.execute('''SELECT * FROM News''')
-    results = cursor.fetchall()
-
-    for row in results:
-        print(row)
-
-    cursor.close()
-    conn.close()
+    # conn = sqlite3.connect('my_database.db')
+    # cursor = conn.cursor()
+    # cursor.execute('''SELECT * FROM News''')
+    # results = cursor.fetchall()
+    #
+    # for row in results:
+    #     print(row)
+    #
+    # cursor.close()
+    # conn.close()
