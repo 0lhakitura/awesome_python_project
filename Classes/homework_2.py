@@ -1,7 +1,7 @@
 import datetime
 import json
 import os
-from Functions.homework_4 import *
+from Functions.homework_3 import *
 import csv
 import string
 import xml.etree.ElementTree as ET
@@ -455,8 +455,6 @@ class TextAnalyzer:
 
 
 if __name__ == "__main__":
-
-
     # text_file = 'news_feed.txt'
     # word_csv_file = 'word_count.csv'
     # letter_csv_file = 'letter_statistics.csv'

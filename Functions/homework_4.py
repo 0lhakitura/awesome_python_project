@@ -1,79 +1,47 @@
-import re
+from collections import Counter
+import pandas as pd
 
 
-def count_whitespace(text):
-    return len(re.findall(r'\s', text))
+# TASK 1: sorted names write in a new file
+def sort_names_and_write_in_a_new_file(filepath_unsorted_names, filepath_sorted_names):
+    with open(filepath_unsorted_names) as unsorted_names, open(filepath_sorted_names, 'w') as sorted_names:
+        content = []
+        for line in unsorted_names:
+            content.append(line)
+        unsorted_names.close()
+        sorted_content = sorted(content)
+        for name in sorted_content:
+            sorted_names.write(name)
 
 
-def fix_spelling_mistake(text):
-    pattern = r'\biz\b'
-    return re.sub(pattern, 'is', text, flags=re.IGNORECASE)
+# TASK 2: Implement a function which search for most common words in the file.
+def most_common_words(filepath, number_of_words=3):
+    with open(filepath) as in_file:
+        content_in_file = in_file.readlines()
+    list_content = []
+    for line in content_in_file:
+        if line != "\n":
+            list_content.append(line.lower().replace(',', '').replace('.', '').split(" "))
+    counter_tuple = ()
+    for word in list_content:
+        counter_tuple = counter_tuple + tuple(word)
+    counter_list = Counter(counter_tuple)
+    return counter_list.most_common(number_of_words)
 
 
-def split_into_sentences(text):
-    return re.split(r'(?<=[.!?])\s+', text)
+# TASK 3 PART 1
+def get_top_performers(file_path, number_of_top_students=5):
+    students = pd.read_csv(file_path)
+    return students.sort_values(by=['average mark'], ascending=False)['student name'].head(number_of_top_students)
 
 
-def format_sentence(sentence):
-    if sentence:
-        formatted_sentence = sentence[0].capitalize() + sentence[1:].lower()
-        punctuation_marks = ('.', ',', '!', '?')
-        if formatted_sentence[-1] in punctuation_marks:
-            return formatted_sentence
-        else:
-            return formatted_sentence + '.'
-    else:
-        return ''
+# TASK 3 PART 2
+def write_student_info_in_desc_order_of_age(file_path):
+    students = pd.read_csv(file_path)
+    sorted_students = students.sort_values(by=['age'], ascending=False)
+    sorted_students.to_csv('sorted_students.csv')
 
 
-def extract_last_words(sentences):
-    last_words = []
-    for sentence in sentences:
-        words = sentence.split()
-        if words:
-            last_words.append(words[-1])
-    return last_words
-
-
-def create_new_sentence(last_words):
-    last_words = " ".join(last_words)
-    last_words = last_words.replace(".", "")
-    return last_words + "."
-
-
-def create_new_paragraph(formatted_sentences):
-    text = ' '.join(formatted_sentences)
-    return text
-
-
-def main():
-    original_text = """tHis iz your homeWork, copy these Text to variable. You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE. last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
-
-    # Count whitespace characters
-    whitespace_count = count_whitespace(original_text)
-
-    # Fix spelling mistake
-    fixed_text = fix_spelling_mistake(original_text)
-
-    # Split text into sentences
-    sentences = split_into_sentences(fixed_text)
-
-    # Format each sentence
-    formatted_sentences = [format_sentence(sentence) for sentence in sentences]
-
-    # Extract last words from sentences
-    last_words = extract_last_words(sentences)
-
-    # Create a new sentence and a new paragraph
-    new_sentence = create_new_sentence(last_words)
-    new_paragraph = create_new_paragraph(formatted_sentences)
-
-    # Combine the new sentence and new paragraph
-    final_paragraph = new_paragraph + " " + new_sentence
-
-    print(final_paragraph)
-    print(f"Number of whitespace characters: {whitespace_count}")
-
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    source_file_path = 'data/students.csv'
+    destination_file_path = 'students_new.csv'

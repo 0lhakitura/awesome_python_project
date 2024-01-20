@@ -2,19 +2,19 @@ import random
 
 
 def generate_random_dicts():
-    list_of_dicts = []  # initialize an empty list
-    num_dicts = random.randint(2, 10)  # generate a random integer between 2 and 10 and assign it to the variable
+    list_of_dicts = []
+    num_dicts = random.randint(2, 10)
 
-    for i in range(1, num_dicts + 1):  # loop will iterate from 1 to num_dicts(inclusive)
-        num_keys = random.randint(1, 100)  # generate a random integer between 1 and 100 and assign it to the variable
-        rand_dict = {}  # initialize an empty dictionary
+    for i in range(1, num_dicts + 1):
+        num_keys = random.randint(1, 100)
+        rand_dict = {}
         for j in range(num_keys):
-            key = chr(random.randint(97, 122))  # generate a random lowercase letter and assign it to the variable
-            value = random.randint(0, 100)  # generate a random integer between 0 and 100 and assign it to the variable
-            rand_dict[key] = value  # add a key-value pair to a 'rand_dict' dictionary
-        list_of_dicts.append(rand_dict)  # append the 'rand_dict' dictionary to the 'list_of_dicts' list
+            key = chr(random.randint(97, 122))
+            value = random.randint(0, 100)
+            rand_dict[key] = value
+        list_of_dicts.append(rand_dict)
 
-    return list_of_dicts  # return the contents of the 'list_of_dicts' variable as its result
+    return list_of_dicts
 
 
 def key_exists(d, target_key):
